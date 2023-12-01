@@ -1,4 +1,4 @@
-import { readTxtFile } from "../../utils/utils.js";
+import { readTxtFile } from "../utils/utils.js";
 
 export const NUMBERS_BY_WORD = {
   one: 1,

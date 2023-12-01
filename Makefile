@@ -1,5 +1,10 @@
 SHELL:=/bin/bash
 
-day-%:
-	mkdir day_$*
-	pushd day_$* && touch index.js && touch index.test.js && touch test.txt && touch input.txt && yarn init -y && popd
+2023/day-%:
+	mkdir 2023/day_$*
+	pushd 2023/day_$* && \
+	touch index.js && \
+	touch index.test.js && \
+	touch test.txt && \
+	aoc d && \
+	popd
