@@ -1,0 +1,17 @@
+{
+  "name": "advent-of-code-2023",
+  "version": "1.0.0",
+  "main": "index.js",
+  "type": "module",
+  "repository": "git@github.com:AmaanIbnNasar/advent-of-code-2023.git",
+  "author": "amaanibn-nasar1-nhs <amaan.ibn-nasar1@nhs.net>",
+  "license": "MIT",
+  "devDependencies": {
+    "@babel/core": "^7.23.3",
+    "@babel/plugin-transform-modules-commonjs": "^7.23.3",
+    "@babel/preset-env": "^7.23.3",
+    "@babel/preset-typescript": "^7.23.3",
+    "jest": "^29.7.0",
+    "babel-plugin-transform-import-meta": "^2.2.1"
+  }
+}
