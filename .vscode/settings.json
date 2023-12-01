@@ -1,3 +1,4 @@
 {
-  "jest.jestCommandLine": "source ~/.zshrc && yarn test --"
+  "jest.jestCommandLine": "source ~/.zshrc && yarn test --",
+  "jest.rootPath": "./"
 }

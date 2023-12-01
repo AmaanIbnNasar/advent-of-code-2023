@@ -6,6 +6,9 @@
   "repository": "git@github.com:AmaanIbnNasar/advent-of-code-2023.git",
   "author": "amaanibn-nasar1-nhs <amaan.ibn-nasar1@nhs.net>",
   "license": "MIT",
+  "scripts": {
+    "test": "jest"
+  },
   "devDependencies": {
     "@babel/core": "^7.23.3",
     "@babel/plugin-transform-modules-commonjs": "^7.23.3",
