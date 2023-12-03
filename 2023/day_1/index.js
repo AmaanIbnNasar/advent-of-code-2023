@@ -40,4 +40,4 @@ const main = () => {
   }
 };
 
-main();
+// main();
