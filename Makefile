@@ -2,11 +2,17 @@ SHELL:=/bin/bash
 mkfile_path := $(abspath $(lastword $(MAKEFILE_LIST)))
 current_dir :=  $(patsubst %/,%,$(dir $(mkfile_path)))
 
+check_year:
+ifdef year
+	@echo "Year is defined $(year)"
+endif
+ifndef year
+	$(error Year is not defined)
+endif
 
-
-2023/day_%:
-	mkdir 2023/day_$*
-	pushd 2023/day_$* && \
+new_day_%: check_year
+	mkdir ${year}/day_$*
+	pushd ${year}/day_$* && \
 	touch index.js && \
 	echo 'import { fileURLToPath } from "url";export const main = () => {};if (process.argv[1] == fileURLToPath(import.meta.url)) {main();}' > index.js && \
 	touch index.test.js && \
@@ -15,5 +21,5 @@ current_dir :=  $(patsubst %/,%,$(dir $(mkfile_path)))
 	mv input input.txt && \
 	popd
 
-run-2023/day_%:
-	node $(current_dir)/2023/day_$*/index.js
+run-day_%: check_year
+	node $(current_dir)/${year}/day_$*/index.js
