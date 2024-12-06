@@ -894,6 +894,37 @@ export const validateUpdate = (update, orderingRules) => {
     })
     .reduce((prev, curr) => prev && curr);
 };
+export const whyInvalid = (update, orderingRules) => {
+  const invalids = update.map((x, i) => {
+    if (orderingRules.hasOwnProperty(x)) {
+      const { before, after } = orderingRules[x];
+      const beforesValid = before.map((num) => {
+        const numIndex = update.indexOf(num);
+        if (numIndex == -1) {
+          return { num, valid: true };
+        } else if (i > numIndex) {
+          return { num, valid: true };
+        } else {
+          return { num, valid: false };
+        }
+      });
+      const aftersValid = after.map((num) => {
+        const numIndex = update.indexOf(num);
+        if (numIndex == -1) {
+          return { num, valid: true };
+        } else if (i > numIndex) {
+          return { num, valid: true };
+        } else {
+          return { num, valid: false };
+        }
+      });
+      return { a: x, beforesValid, aftersValid };
+    }
+  });
+  const firstAfterInvalid = invalids.find((invalid) =>
+    invalid.aftersValid.find((afterInvalid) => afterInvalid.valid == false)
+  );
+};
 
 export const main = () => {
   console.log(
@@ -905,12 +936,27 @@ export const main = () => {
       })
       .reduce((prev, curr) => prev + curr)
   );
-
-  console.log(
-    testDataUpdates.filter(
-      (update) => !validateUpdate(update, testDataOrderingRules)
-    )
+  const invalidUpdates = actualDataUpdates.filter(
+    (update) => !validateUpdate(update, actualOrderingRules)
   );
+  const newUpdates = [];
+  for (let i = 0; i < invalidUpdates.length; i++) {
+    let update = invalidUpdates[i];
+    console.log(`${i + 1}/${invalidUpdates.length}`);
+    let valid = false;
+    let newUpdate = [...update];
+    console.log(update);
+    while (!valid) {
+      shuffle(newUpdate);
+      if (validateUpdate(newUpdate, actualOrderingRules)) {
+        newUpdates.push(newUpdate);
+        valid = true;
+      }
+    }
+  }
+
+  console.log(invalidUpdates);
+  console.log(newUpdates);
 };
 if (process.argv[1] == fileURLToPath(import.meta.url)) {
   main();

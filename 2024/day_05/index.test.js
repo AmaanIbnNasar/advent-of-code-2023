@@ -3,6 +3,7 @@ import {
   testDataOrderingRules,
   testDataUpdates,
   validateUpdate,
+  whyInvalid,
 } from ".";
 
 describe("createOrderingObject", () => {
@@ -31,6 +32,17 @@ describe("validateUpdate", () => {
   ])("should validate the update with rules", (i, expected) => {
     expect(validateUpdate(testDataUpdates[i], testDataOrderingRules)).toEqual(
       expected
+    );
+  });
+});
+
+describe("whyInvalid", () => {
+  it("should return why an update is invalid", () => {
+    const invalidUpdate = [75, 97, 47, 61, 53];
+    const expectedReason = { firstNum: 75, secondNum: 97, reason: "after" };
+
+    expect(whyInvalid(invalidUpdate, testDataOrderingRules)).toEqual(
+      expectedReason
     );
   });
 });
