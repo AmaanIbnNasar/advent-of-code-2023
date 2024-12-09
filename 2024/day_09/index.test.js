@@ -1,4 +1,4 @@
-import { fillGaps, parseLine, repeatLetter } from ".";
+import { calculateChecksum, fillGaps, parseLine, repeatLetter } from ".";
 
 describe("repeatLetter", () => {
   it("should return the letter repeated X times", () => {
@@ -7,7 +7,7 @@ describe("repeatLetter", () => {
 });
 
 describe("parseLine", () => {
-  it.each([["12345", ["0", "..", "111", "....", "22222"]]])(
+  it.each([["12345", ["0", ".", ".", "111", ".", ".", ".", ".", "22222"]]])(
     "should parse the line correctly - %s as %s",
     (input, parsed) => {
       expect(parseLine(input)).toEqual(parsed);
@@ -17,15 +17,21 @@ describe("parseLine", () => {
 
 describe("fillGaps", () => {
   it.each([
-    // [["0", "..", "111", "....", "22222"], "022111222"],
+    [["0", "..", "111", "....", "22222"], "022111222"],
     [
       [
         "00",
-        "...",
+        ".",
+        ".",
+        ".",
         "111",
-        "...",
+        ".",
+        ".",
+        ".",
         "2",
-        "...",
+        ".",
+        ".",
+        ".",
         "333",
         ".",
         "44",
@@ -43,5 +49,12 @@ describe("fillGaps", () => {
     ],
   ])("should fill the gaps for %s correctly - %s", (input, filled) => {
     expect(fillGaps(input)).toEqual(filled);
+  });
+});
+
+describe("calculateChecksum", () => {
+  it("should calculate correctly", () => {
+    const input = "0099811188827773336446555566";
+    expect(calculateChecksum(input)).toEqual(1928);
   });
 });

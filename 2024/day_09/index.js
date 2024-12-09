@@ -1,5 +1,5 @@
 import { fileURLToPath } from "url";
-
+import { readTxtFile } from "../../utils/utils.js";
 export const repeatLetter = (letter, repetitions) => {
   return Array(repetitions).fill(letter).join("");
 };
@@ -15,7 +15,7 @@ export const parseLine = (line) => {
       isFile = false;
     } else {
       const repeated = repeatLetter(".", parseInt(char));
-      parsed.push(repeated);
+      parsed.push(...repeated);
       isFile = true;
       i++;
     }
@@ -48,7 +48,23 @@ export const fillGaps = (input) => {
   return input.join("");
 };
 
-export const main = () => {};
+export const calculateChecksum = (input) => {
+  let sum = 0;
+  for (let i = 0; i < input.length; i++) {
+    const digit = parseInt(input[i]);
+    sum += digit * i;
+  }
+  return sum;
+};
+
+export const main = () => {
+  const line = readTxtFile("./2024/day_09/test2.txt");
+  const parsed = parseLine(line[0]);
+  const filled = fillGaps(parsed);
+  console.log(parsed);
+  console.log(filled);
+  console.log(calculateChecksum(filled));
+};
 if (process.argv[1] == fileURLToPath(import.meta.url)) {
   main();
 }
